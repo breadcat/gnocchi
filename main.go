@@ -196,7 +196,7 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 
 	recentTable := ""
 	if len(recent) > 0 {
-		recentTable = `<div class="card"><h2>Recent entries</h2><table>` + recentRows + `</table></div>`
+		recentTable = `<details class="card"><summary><h2>Recent entries</h2></summary><table>` + recentRows + `</table></details>`
 	}
 
 	svgBlock := ""
@@ -218,9 +218,10 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 	.card,body{padding:16px}
 	.card{background:#222;border-radius:12px;margin-bottom:16px;border:1px solid #333;box-shadow:none}
 	.date-label{font-size:.85rem;color:#777;margin-bottom:8px}
+	.logged,table{font-size:.9rem}
 	.input-row{display:flex;gap:8px;align-items:center}
-	.logged{font-size:.9rem;color:#7cbf7c;font-weight:600;margin-top:8px}
-	body{font-family:Consolas,Menlo,'DejaVu Sans Mono',monospace;background:#1a1a1a;max-width:600px;margin:0 auto}
+	.logged{color:#7cbf7c;font-weight:600;margin-top:8px}
+	body{font-family:monospace;background:#1a1a1a;max-width:600px;margin:0 auto}
 	button:active{opacity:.8}
 	button:hover{background:#2e2e2e}
 	button{padding:10px 20px;background:#2a2a2a;border:1px solid #333;border-radius:8px;cursor:pointer;white-space:nowrap}
@@ -228,11 +229,17 @@ func handleIndex(w http.ResponseWriter, r *http.Request) {
 	input[type=number]{flex:1;font-size:1.4rem;padding:10px 14px;border:2px solid #333;border-radius:8px;background:#1a1a1a;color:#d4d4d4;-moz-appearance:textfield}
 	svg,table{width:100%}
 	svg{height:auto;display:block}
-	svg text {fill: #d4d4d4}
-	table{border-collapse:collapse;font-size:.9rem}
+	svg text{fill:#d4d4d4}
+	table{border-collapse:collapse}
 	td:last-child{text-align:right;font-variant-numeric:tabular-nums}
 	td{padding:6px 4px;border-bottom:1px solid #333}
 	tr:last-child td{border-bottom:none;font-weight:600}
+	details summary{cursor:pointer;list-style:none}
+	details summary::-webkit-details-marker{display:none}
+	details summary h2{display:inline}
+	details summary:hover{color:#5b9bd5}
+	details summary::after{content:" ▸";color:#777}
+	details[open] summary::after{content:" ▾"}
 </style>
 </head>
 <body>
